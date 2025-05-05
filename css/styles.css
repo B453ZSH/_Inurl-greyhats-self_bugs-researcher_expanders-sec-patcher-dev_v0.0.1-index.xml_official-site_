@@ -423,3 +423,31 @@ footer {
         font-size: 1.2rem;
     }
 }
+/* SVG Circle Images */
+.circle-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.portfolio-item .circle-image {
+    width: 200px;
+    height: 200px;
+}
+
+/* SVG Animation */
+svg .animated-gear {
+    animation: rotate 8s linear infinite;
+    transform-origin: center;
+}
+
+svg .animated-wave {
+    animation: wave 3s ease-in-out infinite alternate;
+}
+
+@keyframes wave {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
