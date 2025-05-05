@@ -51,9 +51,37 @@
             <div class="container">
                 <h2>About Me</h2>
                 <div class="about-content">
-                    <div class="profile-image">
-                        <img src="images/profile.jpg" alt="B453ZSH Profile" class="circle-image">
-                    </div>
+                    <!-- In the head section add this for SVG support -->
+<link rel="icon" href="images/icon.svg" type="image/svg+xml">
+
+<!-- Updated Profile Image Section -->
+<div class="profile-image">
+    <svg class="circle-image" width="300" height="300" viewBox="0 0 300 300">
+        <defs>
+            <pattern id="avatarPattern" patternUnits="userSpaceOnUse" width="300" height="300">
+                <image href="images/profile.svg" width="300" height="300" />
+            </pattern>
+        </defs>
+        <circle cx="150" cy="150" r="145" fill="url(#avatarPattern)" />
+        <circle cx="150" cy="150" r="145" fill="none" stroke="#3498db" stroke-width="8" />
+    </svg>
+</div>
+
+<!-- Updated Portfolio Items -->
+<div class="portfolio-item">
+    <svg class="circle-image" width="200" height="200" viewBox="0 0 200 200">
+        <defs>
+            <pattern id="project1Pattern" patternUnits="userSpaceOnUse" width="200" height="200">
+                <image href="images/project1.svg" width="200" height="200" />
+            </pattern>
+        </defs>
+        <circle cx="100" cy="100" r="95" fill="url(#project1Pattern)" />
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#3498db" stroke-width="4" />
+    </svg>
+    <h3>Security Tool</h3>
+    <p>A custom penetration testing tool developed in Python.</p>
+    <a href="#" class="btn-small">View Project</a>
+</div>
                     <div class="about-text">
                         <p>Hello! I'm B453ZSH, a cybersecurity enthusiast with a focus on penetration testing and ethical hacking.</p>
                         <p>I enjoy exploring security vulnerabilities, developing tools, and sharing knowledge with the community.</p>
