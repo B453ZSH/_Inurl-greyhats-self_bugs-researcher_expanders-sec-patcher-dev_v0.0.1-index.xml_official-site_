@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <style>
+        .bg { fill: #2c3e50; }
+        .shield { fill: #e74c3c; stroke: #fff; stroke-width: 5; }
+        .magnify { fill: none; stroke: #3498db; stroke-width: 3; }
+        .glass { fill: rgba(52, 152, 219, 0.2); }
+        .handle { stroke: #3498db; stroke-width: 3; }
+        .animated-scan { animation: scan 4s linear infinite; }
+        @keyframes scan { 
+            0% { transform: translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(150px); opacity: 0; } 
+        }
+    </style>
+    
+    <rect class="bg" width="200" height="200" rx="100"/>
+    <path class="shield" d="M100,40 L40,80 L60,160 L140,160 L160,80 Z"/>
+    <circle class="magnify" cx="130" cy="100" r="40"/>
+    <circle class="glass" cx="130" cy="100" r="35"/>
+    <line class="handle" x1="150" y1="120" x2="180" y2="150"/>
+    <rect class="animated-scan" x="50" y="50" width="100" height="5" fill="#4CAF50" opacity="0"/>
+</svg>

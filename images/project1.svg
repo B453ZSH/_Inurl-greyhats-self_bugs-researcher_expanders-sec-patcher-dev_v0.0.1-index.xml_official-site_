@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <style>
+        .bg { fill: #2c3e50; }
+        .terminal { fill: #1e1e1e; }
+        .text { fill: #4CAF50; font-family: monospace; }
+        .cursor { animation: blink 1s step-end infinite; }
+        .animated-wave { animation: wave 3s ease-in-out infinite alternate; }
+        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes wave { to { transform: translateY(-5px); } }
+    </style>
+    
+    <rect class="bg" width="200" height="200" rx="100"/>
+    <rect class="terminal" x="30" y="30" width="140" height="140" rx="5"/>
+    <text class="text" x="40" y="60" font-size="12">$ nmap -sV target.com</text>
+    <text class="text" x="40" y="80" font-size="12">PORT    STATE SERVICE VERSION</text>
+    <text class="text" x="40" y="100" font-size="12">22/tcp  open  ssh     OpenSSH 7.9</text>
+    <text class="text" x="40" y="120" font-size="12">80/tcp  open  http    nginx 1.18</text>
+    <text class="text" x="40" y="140" font-size="12">443/tcp open  ssl/http nginx 1.18</text>
+    <text class="text cursor" x="40" y="160" font-size="12">$ _</text>
+    <path class="animated-wave" fill="none" stroke="#3498db" stroke-width="2" d="M30,180 Q50,160 70,180 Q90,200 110,180 Q130,160 150,180 Q170,200 190,180"/>
+</svg>

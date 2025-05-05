@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <style>
+        .bg { fill: #2c3e50; }
+        .flag { fill: #e74c3c; }
+        .pole { fill: #795548; }
+        .book { fill: #3498db; }
+        .pages { fill: #fff; }
+        .animated-flag { animation: wave 3s ease-in-out infinite alternate; transform-origin: 50px 150px; }
+        @keyframes wave { 
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(0.8); } 
+        }
+    </style>
+    
+    <rect class="bg" width="200" height="200" rx="100"/>
+    <rect class="pole" x="45" y="50" width="10" height="120" rx="2"/>
+    <path class="flag animated-flag" d="M55,50 L55,80 L100,65 Z"/>
+    <rect class="book" x="100" y="70" width="60" height="80" rx="3"/>
+    <rect class="pages" x="105" y="75" width="50" height="70" rx="1"/>
+    <text x="110" y="120" font-family="monospace" font-size="14" fill="#2c3e50">CTF</text>
+    <text x="110" y="140" font-family="monospace" font-size="14" fill="#2c3e50">Writeups</text>
+</svg>

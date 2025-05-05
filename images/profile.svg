@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+    <style>
+        .bg { fill: #2c3e50; }
+        .head { fill: #f5d6ba; }
+        .hair { fill: #1a1a1a; }
+        .eye { fill: #333; }
+        .mouth { fill: none; stroke: #333; stroke-width: 2; }
+        .shirt { fill: #3498db; }
+        .animated-gear { animation: rotate 8s linear infinite; transform-origin: center; }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+    </style>
+    
+    <rect class="bg" width="300" height="300" rx="150"/>
+    <circle class="head" cx="150" cy="120" r="80"/>
+    <path class="hair" d="M70,120 Q150,20 230,120 Q210,200 150,180 Q90,200 70,120"/>
+    <circle class="eye" cx="120" cy="100" r="10"/>
+    <circle class="eye" cx="180" cy="100" r="10"/>
+    <rect x="100" y="90" width="40" height="20" fill="none" stroke="#333" stroke-width="2" rx="5"/>
+    <rect x="160" y="90" width="40" height="20" fill="none" stroke="#333" stroke-width="2" rx="5"/>
+    <line x1="140" y1="100" x2="160" y2="100" stroke="#333" stroke-width="2"/>
+    <path class="mouth" d="M130,150 Q150,170 170,150"/>
+    <rect class="shirt" x="90" y="200" width="120" height="100" rx="10"/>
+    <path class="animated-gear" fill="#e74c3c" transform="translate(150,250)" d="M30,0 L40,10 L35,15 L45,25 L35,35 L40,40 L30,50 L20,40 L25,35 L15,25 L25,15 L20,10 Z"/>
+</svg>
