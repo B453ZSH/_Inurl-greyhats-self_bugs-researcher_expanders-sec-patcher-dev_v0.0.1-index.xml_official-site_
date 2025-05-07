@@ -1,0 +1,32 @@
+/* Minimal required CSS */
+official-legal-links [role="list"] {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 12px;
+  list-style: none;
+  margin: 0;
+}
+
+.legal-link {
+  display: block;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  color: #222;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+@media (min-width: 600px) {
+  official-legal-links [role="list"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .full-width {
+    grid-column: span 3;
+  }
+}
