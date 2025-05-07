@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Silverhats Reserved Researchers - Advanced research collective">
+  <title>Silverhats Reserved Researchers</title>
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="preload" href="assets/css/index.css" as="style">
+</head>
+<body>
+  <article id="main-content">
+    <header>
+      <h1>Silverhats Reserved Researchers</h1>
+      <p>Advanced research collective specializing in cutting-edge technologies</p>
+    </header>
+
+    <section class="skills-grid" aria-label="Research skills">
+      <div class="skill-card" tabindex="0" onclick="location.href='#ai-research'">
+        <h2>AI Research</h2>
+        <p>Machine learning and neural network development</p>
+      </div>
+
+      <div class="skill-card" tabindex="0" onclick="location.href='#cybersecurity'">
+        <h2>Cybersecurity</h2>
+        <p>Advanced threat analysis and protection</p>
+      </div>
+
+      <div class="skill-card" tabindex="0" onclick="location.href='#quantum-computing'">
+        <h2>Quantum Computing</h2>
+        <p>Qubit manipulation algorithms</p>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    // Simple animation handler
+    document.querySelectorAll('.skill-card').forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
