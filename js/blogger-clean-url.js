@@ -2,7 +2,7 @@
 // @name         Blogger Smart View Cleaner (Silverhats Edition)
 // @namespace    https://github.com/B453ZSH/
 // @version      5.2
-// @description  Minimal safe view manager with Silverhats credit badge
+// @description  Minimal safe view manager with Silverhats !
 // @match        *://*.blogspot.com/*
 // @grant        GM_setValue
 // @grant        GM_getValue
