@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Blogger Clean URL Enforcer
+// @name         Blogger URL Cleaner
 // @namespace    https://github.com/B453ZSH/
-// @version      4.0
-// @description  Forces clean URLs (no m= parameters) while blocking all mobile behavior
+// @version      4.1
+// @description  Removes all m= parameters while preventing mobile redirects
 // @match        *://*.blogspot.com/*
 // @grant        none
 // @run-at       document-start
@@ -11,35 +11,36 @@
 (function() {
     'use strict';
     
-    // ================= CONFIG =================
     const CONFIG = {
         debug: true    // Show console logs
     };
 
     // ============== URL CLEANER ==============
     function cleanUrl(url) {
-        return url
+        const cleaned = url
             .replace(/([?&])m=[01]&?/g, '$1')  // Remove m=0 or m=1
-            .replace(/[?&]$/, '')              // Remove trailing ? or &
-            .replace(/\?&/, '?');              // Fix ?& sequences
+            .replace(/[?&]$/, '')               // Remove trailing ? or &
+            .replace(/\?&/, '?');               // Fix ?& sequences
+        
+        if (url !== cleaned && CONFIG.debug) {
+            console.log('[Cleaner] Removed m parameter from URL');
+        }
+        return cleaned;
     }
 
     // 1. Clean current URL if needed
     if (/[?&]m=[01]/.test(location.search)) {
-        const newUrl = cleanUrl(location.href);
-        if (CONFIG.debug) console.log('[Cleaner] Removing m parameter from URL');
-        location.replace(newUrl);
-        return;
+        history.replaceState(null, '', cleanUrl(location.href));
     }
 
     // ============== CORE PROTECTION ==============
     
-    // 2. Hijack WidgetManager before it loads
+    // 2. Neutralize WidgetManager's mobile forcing
     const originalWM = window._WidgetManager;
     window._WidgetManager = {
         _Init: function() {
-            if (CONFIG.debug) console.log('[Enforcer] Neutralizing WidgetManager mobile init');
-            // Remove all m parameters from arguments
+            if (CONFIG.debug) console.log('[Neutralizer] Blocking mobile parameter injection');
+            // Clean all URLs in arguments
             const args = Array.from(arguments).map(arg => 
                 typeof arg === 'string' ? cleanUrl(arg) : arg
             );
@@ -47,44 +48,16 @@
         }
     };
 
-    // 3. Block mobile CSS and scripts
-    const blockMobileAssets = () => {
-        // Remove mobile CSS
-        document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
-            if (link.href.includes('widget_css_mobile_bundle.css')) {
-                if (CONFIG.debug) console.log('[Enforcer] Removed mobile CSS');
-                link.remove();
-            }
-        });
-
-        // Block mobile scripts
-        document.querySelectorAll('script').forEach(script => {
-            if (script.src && script.src.includes('mobile')) {
-                if (CONFIG.debug) console.log('[Enforcer] Blocked mobile script');
-                script.remove();
-            }
-        });
-    };
-
-    // 4. Force desktop rendering
-    const meta = document.createElement('meta');
-    meta.name = 'viewport';
-    meta.content = 'width=1024, initial-scale=1';
-    document.head.appendChild(meta);
-
-    // =============== EXECUTION ================
-    
-    // Immediate cleanup
-    blockMobileAssets();
-    
-    // Continuous protection
-    const observer = new MutationObserver(blockMobileAssets);
-    observer.observe(document, {
-        childList: true,
-        subtree: true
+    // 3. Block automatic mobile redirects
+    window.addEventListener('beforeunload', e => {
+        if (location.href.includes('m=')) {
+            if (CONFIG.debug) console.log('[Guard] Blocking m parameter redirect');
+            history.replaceState(null, '', cleanUrl(location.href));
+            e.preventDefault();
+        }
     });
-    
-    // Link rewriting for navigation
+
+    // 4. Clean all links on click
     document.addEventListener('click', e => {
         const link = e.target.closest('a[href*="m="]');
         if (link) {
@@ -93,12 +66,14 @@
         }
     }, true);
 
-    // Final protection against Blogger's redirects
-    window.addEventListener('beforeunload', e => {
-        if (location.href.includes('m=')) {
-            if (CONFIG.debug) console.log('[Guard] Blocking m parameter redirect');
-            location.href = cleanUrl(location.href);
-            e.preventDefault();
+    // 5. Monitor for dynamic URL changes
+    let lastUrl = location.href;
+    setInterval(() => {
+        if (location.href !== lastUrl) {
+            lastUrl = location.href;
+            if (/[?&]m=[01]/.test(location.search)) {
+                history.replaceState(null, '', cleanUrl(location.href));
+            }
         }
-    });
+    }, 500);
 })();
