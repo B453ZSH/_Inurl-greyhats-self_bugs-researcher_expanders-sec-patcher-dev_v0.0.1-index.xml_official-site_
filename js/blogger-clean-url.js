@@ -1,79 +1,93 @@
 // ==UserScript==
-// @name         Blogger URL Cleaner
+// @name         Blogger Smart View Manager
 // @namespace    https://github.com/B453ZSH/
-// @version      4.1
-// @description  Removes all m= parameters while preventing mobile redirects
+// @version      5.0
+// @description  Prevents refresh loops while handling view mode changes
 // @match        *://*.blogspot.com/*
-// @grant        none
-// @run-at       document-start
+// @grant        GM_setValue
+// @grant        GM_getValue
 // ==/UserScript==
 
 (function() {
     'use strict';
     
     const CONFIG = {
-        debug: true    // Show console logs
+        debug: true,
+        SESSION_KEY: 'bloggerViewState'
     };
 
-    // ============== URL CLEANER ==============
-    function cleanUrl(url) {
-        const cleaned = url
-            .replace(/([?&])m=[01]&?/g, '$1')  // Remove m=0 or m=1
-            .replace(/[?&]$/, '')               // Remove trailing ? or &
-            .replace(/\?&/, '?');               // Fix ?& sequences
-        
-        if (url !== cleaned && CONFIG.debug) {
-            console.log('[Cleaner] Removed m parameter from URL');
-        }
-        return cleaned;
+    // ============== SESSION MANAGEMENT ==============
+    function getViewState() {
+        return GM_getValue(CONFIG.SESSION_KEY, {
+            userChoice: null,
+            lastUrl: null
+        });
     }
 
-    // 1. Clean current URL if needed
-    if (/[?&]m=[01]/.test(location.search)) {
-        history.replaceState(null, '', cleanUrl(location.href));
+    function saveViewState(state) {
+        GM_setValue(CONFIG.SESSION_KEY, state);
+    }
+
+    // ============== INTELLIGENT URL CLEANING ==============
+    function handleUrl() {
+        const currentUrl = new URL(location.href);
+        const viewState = getViewState();
+        
+        // Detect explicit user navigation
+        const isUserNavigation = performance.navigation.type === 0 || 
+                               document.referrer !== '';
+        
+        // Clean URL only if not fresh user choice
+        if (currentUrl.searchParams.has('m') && !isUserNavigation) {
+            currentUrl.searchParams.delete('m');
+            history.replaceState(null, '', currentUrl.toString());
+            if (CONFIG.debug) console.log('[Manager] Cleaned automatic m parameter');
+        }
+    }
+
+    // ============== VIEWPORT PROTECTION ==============
+    function lockViewport() {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, initial-scale=1.0, minimum-scale=1.0';
+        document.head.appendChild(meta);
     }
 
     // ============== CORE PROTECTION ==============
-    
-    // 2. Neutralize WidgetManager's mobile forcing
-    const originalWM = window._WidgetManager;
-    window._WidgetManager = {
-        _Init: function() {
-            if (CONFIG.debug) console.log('[Neutralizer] Blocking mobile parameter injection');
-            // Clean all URLs in arguments
-            const args = Array.from(arguments).map(arg => 
-                typeof arg === 'string' ? cleanUrl(arg) : arg
-            );
-            return originalWM?._Init.apply(this, args);
-        }
-    };
-
-    // 3. Block automatic mobile redirects
-    window.addEventListener('beforeunload', e => {
-        if (location.href.includes('m=')) {
-            if (CONFIG.debug) console.log('[Guard] Blocking m parameter redirect');
-            history.replaceState(null, '', cleanUrl(location.href));
-            e.preventDefault();
-        }
-    });
-
-    // 4. Clean all links on click
-    document.addEventListener('click', e => {
-        const link = e.target.closest('a[href*="m="]');
-        if (link) {
-            e.preventDefault();
-            location.href = cleanUrl(link.href);
-        }
-    }, true);
-
-    // 5. Monitor for dynamic URL changes
-    let lastUrl = location.href;
-    setInterval(() => {
-        if (location.href !== lastUrl) {
-            lastUrl = location.href;
-            if (/[?&]m=[01]/.test(location.search)) {
-                history.replaceState(null, '', cleanUrl(location.href));
+    function initialize() {
+        // 1. Initial cleanup
+        handleUrl();
+        
+        // 2. Viewport stabilization
+        lockViewport();
+        
+        // 3. Mobile asset blocking
+        const observer = new MutationObserver(() => {
+            document.querySelectorAll('link[href*="mobile"], script[src*="mobile"]').forEach(el => {
+                el.remove();
+                if (CONFIG.debug) console.log('[Manager] Removed mobile asset:', el.href || el.src);
+            });
+        });
+        
+        observer.observe(document, {
+            childList: true,
+            subtree: true
+        });
+        
+        // 4. Navigation protection
+        window.addEventListener('beforeunload', e => {
+            if (location.href.includes('m=')) {
+                if (CONFIG.debug) console.log('[Manager] Blocking parameterized redirect');
+                e.preventDefault();
+                return false;
             }
-        }
-    }, 500);
+        });
+    }
+
+    // ============== INITIALIZATION ==============
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+        initialize();
+    }
 })();
