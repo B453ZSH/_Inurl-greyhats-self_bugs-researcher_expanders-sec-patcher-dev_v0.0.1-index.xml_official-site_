@@ -1,0 +1,212 @@
+
+
+/* starting beautifull css */
+/* tztrs.blogspot.com */
+.post-snippet {
+  position: relative;
+  max-height: 150px; /* Adjust based on your layout */
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+/* Fading effect at bottom */
+.post-snippet:after {
+  content: &quot;&quot;;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, 
+              rgba(255,255,255,0) 0%, 
+              rgba(255,255,255,0.9) 100%);
+  z-index: 2;
+}
+
+/* Read More Button - Positioned UNDER fade */
+.jump-link {
+  position: relative;
+  z-index: 3; /* Above fade but below content */
+  text-align: center;
+  margin-top: -25px; /* Pulls up into fade zone */
+}
+
+.jump-link a {
+  display: inline-block;
+  background: #ffffff;
+  color: #3498db !important;
+  padding: 5px 20px;
+  border: 1px solid #3498db;
+  border-radius: 20px;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+/* RTL (Arabic) Support */
+[dir=&#39;rtl&#39;] .jump-link {
+  text-align: center; /* Keeps centered in RTL */
+}
+/* end css */
+ /* starting beautifull css */
+.post-title, 
+.entry-title {
+  position: relative;
+  padding-left: 16px; /* Space for border */
+  margin-left: 4px;   /* Optional indent */
+}
+
+/* Border with bottom rounding only */
+.post-title::before, 
+.entry-title::before {
+  content: &quot;&quot;;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px; /* Border thickness */
+  background: linear-gradient(to bottom, #3f87a6 0%, #ebf8e1 100%); /* Gradient accent */
+  border-bottom-left-radius: 8px; /* Only round bottom-left */
+}
+
+/* Hover effect (optional) */
+.post-title:hover::before, 
+.entry-title:hover::before {
+  width: 6px;
+  background: #3f87a6; /* Solid color on hover */
+}
+/* end css */
+   
+  
+  
+ 
+  /* starting beautifull css */
+  /* Minimalist, no shadow, no harsh colors */
+  #blog-pager {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    color: #444;
+    background: transparent; /* Removed background color */
+    border-left: 3px solid silver;  /* Gold border on the left */
+    border-bottom: 3px solid silver; /* Gold border at the bottom */
+    border-right: 3px solid silver; /* Gold border on the right */
+  }
+
+  
+  .blog-pager a,
+  .home-link {
+    padding: 6px 12px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #222;
+    transition: background 0.3s;
+    background: transparent;  /* Removed background color */
+  }
+    
+    
+
+  .blog-pager a:hover {
+    background: transparent;  /* Removed hover background */
+    border-color: #888;  /* Slightly darker border on hover */
+  }
+
+  .post-title {
+    font-size: 20px;
+    color: #333;
+    margin: 10px 0;
+    font-weight: 600;
+  }
+
+  .date-header span {
+    background: #c8c8c8;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #444;
+  }
+
+  .post-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #222;
+  }
+
+  .post-footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .mobile-link-button a,
+  .mobile-desktop-link a {
+    display: inline-block;
+    margin: 4px;
+    padding: 4px 10px;
+    background: transparent;  /* Removed background color */
+    border: 1px solid #d3d3d3;  /* Subtle border */
+    border-radius: 4px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #222;
+  }
+
+  .mobile-link-button a:hover,
+  .mobile-desktop-link a:hover {
+    background: transparent;  /* Removed hover background */
+    border-color: #bcbcbc;  /* Slightly darker border on hover */
+  }
+/* end css */
+/* starting beautifull css */
+/* ===== GREYHAT GRID v6.3 ===== */
+.ghs-grid-system {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.ghs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.ghs-card {
+  flex: 1 1 100%;
+  min-width: 0;
+  background: #f7f7f7;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+/* RESPONSIVE COLUMNS */
+@media (min-width: 600px) {
+  .ghs-card {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+@media (min-width: 900px) {
+  .ghs-card {
+    flex: 1 1 calc(33.333% - 20px);
+  }
+}
+
+/* BLOGGER OVERRIDES */
+.post-outer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.post-body {
+  padding: 20px !important;
+  margin: 0 !important;
+}
+/* end css */
