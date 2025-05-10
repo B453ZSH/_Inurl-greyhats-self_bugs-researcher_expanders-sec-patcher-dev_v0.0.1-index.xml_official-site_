@@ -1,5 +1,5 @@
 
-/* body - Reset & Base */
+/* rm -rf - Reset & Base */
 html {
   scroll-behavior: smooth;
   box-sizing: border-box;
@@ -331,12 +331,61 @@ footer {
 }
 
 /* BLOGGER OVERRIDES */
-.post-outer {
-  margin: 0 !important;
-  padding: 0 !important;
+
+.post-outer, 
+.post.hentry.uncustomized-post-template {
+  /* Reset Layout */
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  
+  /* section Overflow Protection */
+  overflow: hidden;
+  word-wrap: break-word;
+  hyphens: auto;
+  
+  /* Box Model Fix */
+  box-sizing: border-box;
+  display: flow-root;
+  
 }
-.post-body {
-  padding: 20px !important;
-  margin: 0 !important;
+
+/* Handle Element in Post */
+.post.hentry .post-content {
+  contain: layout paint style;
+  max-width: min(100%, 65ch);
+  margin: 0 auto;
+}
+
+/* Fix Media Elements */
+.post.hentry img,
+.post.hentry iframe,
+.post.hentry video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* Table Overflow Protection */
+.post.hentry table {
+  width: 100% !important;
+  max-width: 100%;
+  display: table;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+/* c/Preformatted Text */
+.post.hentry pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
 }
 /* end css */
