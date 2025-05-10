@@ -178,6 +178,10 @@ footer {
 }
 /* end css */
  /* starting beautifull css */
+.post.hentry * {
+  max-width: 100%;
+  word-break: break-word;
+}
 .post-title, 
 .entry-title {
   position: relative;
