@@ -1,4 +1,4 @@
-<script>
+
 document.addEventListener('DOMContentLoaded',function(){
   const a=['yourdomain.com','example.com','trustedsite.net'];
   function b(){return window.location.hostname.replace('www.','')}
@@ -22,4 +22,3 @@ document.addEventListener('DOMContentLoaded',function(){
     g?g.parentNode.insertBefore(f,g.nextSibling):document.body.appendChild(f);
   }
 });
-</script>
